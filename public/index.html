@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WebRTC Video Call</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      color: white;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      padding: 10px;
+    }
+
+    .videos {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background: black;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    /* Remote video full screen */
+    #remoteVideo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: black;
+    }
+
+    /* Local video small corner */
+    #localVideo {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      width: 200px;
+      height: 140px;
+      border-radius: 10px;
+      border: 2px solid white;
+      object-fit: cover;
+      background: black;
+    }
+
+    /* ================= CONTROLS ================= */
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 15px;
+      background: #020617;
+    }
+
+    .controls div {
+      padding: 12px 18px;
+      background: #2563eb;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .controls div:hover {
+      background: #1d4ed8;
+    }
+
+    #hangupBtn {
+      background: #dc2626;
+    }
+
+    #hangupBtn:hover {
+      background: #b91c1c;
+    }
+
+    /* ================= INCOMING CALL UI ================= */
+    .call-alert {
+      position: absolute;
+      top: 30%;
+      background: #020617;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(0,0,0,0.6);
+    }
+
+    .call-buttons {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+
+    #acceptBtn {
+      background: #16a34a;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #rejectBtn {
+      background: #dc2626;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= VIDEO CONTAINER ================= -->
+  <div class="container">
+    <div class="videos">
+      <video id="remoteVideo" autoplay playsinline></video>
+      <video id="localVideo" autoplay muted playsinline></video>
+    </div>
+
+    <!-- Incoming call popup -->
+    <div id="incomingCall" class="call-alert hidden">
+      <h2> Incoming Call</h2>
+      <div class="call-buttons">
+        <button id="acceptBtn">Accept</button>
+        <button id="rejectBtn">Reject</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CONTROLS ================= -->
+  <div class="controls">
+    <button id="startBtn">Start Camera</button>
+    <button id="callBtn">Start Call</button>
+    <button id="hangupBtn">End Call</button>
+  </div>
+
+  <!-- socket.io -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html>
