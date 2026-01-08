@@ -10,9 +10,9 @@ const io = new Server(server)
 // Serve static files from 'public' folder
 app.use(express.static(path.join(__dirname, "public")))
 
-// All routes fallback to index.html (for single-page apps)
+// For any route, send index.html from public folder
 app.get("*", (req, res) => {
-  res.sendFile("./public/index.html")
+  res.sendFile(path.join(__dirname, "public", "index.html"))
 })
 
 io.on("connection", (socket) => {
