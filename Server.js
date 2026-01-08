@@ -12,7 +12,7 @@ app.use(express.static(path.join(__dirname, "public")))
 
 // All routes fallback to index.html (for single-page apps)
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"))
+  res.sendFile("./public/index.html")
 })
 
 io.on("connection", (socket) => {
