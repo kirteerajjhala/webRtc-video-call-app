@@ -11,7 +11,7 @@ const io = new Server(server)
 app.use(express.static(path.join(__dirname, "public")))
 
 // For any route, send index.html from public folder
-app.get("/*", (req, res) => {
+app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"))
 })
 
